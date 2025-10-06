@@ -1,55 +1,68 @@
-const CACHE_NAME = "my-pwa-cache-v1";
-const ASSETS = [
-  "/",                     // serves index.html on Vercel
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+const CACHE_NAME = 'pwa-fs-cache-v1';
+const FILES_TO_CACHE = [
+  './',
+  './index.html',
+  './share-target.html',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
-// Install: cache all
-self.addEventListener("install", event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
   );
-  self.skipWaiting(); // activate immediately
+  self.skipWaiting();
 });
 
-// Activate: cleanup old caches
-self.addEventListener("activate", event => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.map(key => {
-        if (key !== CACHE_NAME) {
-          return caches.delete(key);
-        }
-      }))
+    caches.keys().then((keyList) =>
+      Promise.all(
+        keyList.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      )
     )
   );
-  self.clients.claim(); // control all clients immediately
+  self.clients.claim();
 });
 
-// Fetch handler
-self.addEventListener("fetch", event => {
-  if (event.request.method === "GET") {
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // Handle share-target POST
+  if (event.request.method === 'POST' && url.pathname.endsWith('/share-target.html')) {
     event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          // Online: update cache
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
+      (async () => {
+        const formData = await event.request.formData();
+        const file = formData.get('image');
+        const imageUrl = URL.createObjectURL(file);
+        return Response.redirect(`/share-target.html?image=${encodeURIComponent(imageUrl)}`, 303);
+      })()
+    );
+    return;
+  }
+
+  // Handle GET requests: use cache first, fallback to network
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        return cachedResponse || fetch(event.request).then(response => {
+          // Optionally cache new responses
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, response.clone());
+            return response;
           });
-          return response;
-        })
-        .catch(() => {
-          // Offline: serve cached file
-          return caches.match(event.request)
-            .then(cachedRes => {
-              // If the requested file is cached → return it
-              if (cachedRes) return cachedRes;
-              // Otherwise → always fall back to index.html
-              return caches.match("/index.html");
-            });
-        })
+        }).catch(() => {
+          // Optional: fallback to index.html if offline
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        });
+      })
     );
   }
 });
+
+
