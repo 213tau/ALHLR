@@ -1,6 +1,6 @@
 {
-  "name": "My PWA",
-  "short_name": "MyPWA",
+  "name": "Al Hamd PWA",
+  "short_name": "AlHamdPWA",
   "start_url": "/index.html",
   "display": "standalone",
   "icons": [
