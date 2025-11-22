@@ -4,6 +4,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="manifest" href="manifest.json">
   <style type="text/css">
     #protected-content {
             display: none;
@@ -56,9 +57,9 @@
       padding: 0;
       -webkit-appearance: none;
     }
-    @media (max-width: 768px) {
+    @media (min-width: 768px) {
   #scaleWrap {
-    transform: scale(0.285);
+    transform: none;
   }
 }
   </style>
@@ -290,7 +291,7 @@
           </tr>
           <tr>
             <td>REFER BY:</td>
-            <td style="width: 2.5in;"><input type="text" id="reference"></td>
+            <td><input type="text" id="reference" style="width: 2.5in;"></td>
             <td>BMI:</td>
             <td id="bmi">572</td>
           </tr>
@@ -860,7 +861,7 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;
+    display: block;transform: scale(0.285);
 " id="scaleWrap">
         <use href="#letterhead"></use>
       </svg><img style="
@@ -944,7 +945,7 @@
           </tr>
           <tr>
             <td>REFER BY:</td>
-            <td style="width: 2.5in;"><input type="text" id="reference"></td>
+            <td><input type="text" id="reference" style="width: 2.5in;"></td>
             <td>BMI:</td>
             <td id="bmi">572</td>
           </tr>
@@ -1055,7 +1056,7 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;
+    display: block;transform: scale(0.285);
 " id="scaleWrap">
         <use href="#letterhead"></use>
       </svg>
@@ -1126,7 +1127,7 @@
           </tr>
           <tr>
             <td>REFER BY:</td>
-            <td style="width: 2.5in;"><input type="text" id="reference"></td>
+            <td><input type="text" id="reference" style="width: 2.5in;"></td>
             <td>BMI:</td>
             <td id="bmi">572</td>
           </tr>
@@ -1143,7 +1144,7 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;
+    display: block;transform: scale(0.285);
 " id="scaleWrap">
         <use href="#letterhead"></use>
       </svg></div>
@@ -1221,7 +1222,7 @@
         </tr>
         <tr>
           <td>REFER BY:</td>
-          <td style="width: 2.5in;"><input type="text" id="reference"></td>
+          <td><input type="text" id="reference" style="width: 2.5in;"></td>
           <td>BMI:</td>
           <td id="bmi">572</td>
         </tr>
@@ -1237,7 +1238,7 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;
+    display: block;transform: scale(0.285);
 " id="scaleWrap">
         <use href="#letterhead"></use>
       </svg></div>    
@@ -1308,7 +1309,7 @@
         </tr>
         <tr>
           <td>REFER BY:</td>
-          <td style="width: 2.5in;"><input type="text" id="reference"></td>
+          <td><input type="text" id="reference" style="width: 2.5in;"></td>
           <td>BMI:</td>
           <td id="bmi">572</td>
         </tr>
