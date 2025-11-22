@@ -35,17 +35,12 @@
       padding: 0;
     }
     @page {
-      size: A4;
+      size: A4 !important;
       /* or other sizes like Letter, Legal, etc. */
       min-height: 100vh;
       /* 100% of the viewport height */
       margin: 0;
     }
-    @media (min-width: 768px) {
-  #scaleWrap {
-    transform: none !important;
-  }
-}
     @media print {
       select {
         border: none;
@@ -62,7 +57,11 @@
       padding: 0;
       -webkit-appearance: none;
     }
-    
+    @media (min-width: 768px) {
+  #scaleWrap {
+    transform: none !important;
+  }
+}
   </style>
 </head>
 <body>
