@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#317EFB" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/icon-192.png" sizes="192x192" />
-  <title>AL-HAMD LAB PWA</title>
+  <title>AL-HAMD LAB NaN</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -53,7 +47,7 @@
         /* Additional styles for printing */
       }
       #trade-select,
-      button {
+      button, div:has(#balance) {
         display: none;
       }
     }
@@ -62,6 +56,11 @@
       padding: 0;
       -webkit-appearance: none;
     }
+    @media (max-width: 768px) {
+  #scaleWrap {
+    transform: scale(0.285);
+  }
+}
   </style>
 </head>
 <body>
@@ -76,6 +75,8 @@
   <button id="printconvert">Print &amp; Convert</button>
   <button id="convertBtn">Convert PDF to Images</button>
   <button id="shareBtn" disabled="">Share Converted Image Based PDF</button>
+  <button id="sharebalance">Share Balance</button>
+  <div><span id="balance" contenteditable="true">150</span> Rs.</div>  
   <button id="erasedata">Erase Input Fields Data</button>
   <button id="ecgshow">Show Ecg</button>
   <div id="master">
@@ -225,7 +226,7 @@
       <table style="
     position: absolute;
     top: 1.6in;
-    left: 1.3in;
+    left: 1in;
     font-family: 'Trebuchet MS', sans-serif, Bold;
     font-weight: bold;
     font-size: 9pt;
@@ -289,7 +290,7 @@
           </tr>
           <tr>
             <td>REFER BY:</td>
-            <td><input type="text" id="reference"></td>
+            <td style="width: 2.5in;"><input type="text" id="reference"></td>
             <td>BMI:</td>
             <td id="bmi">572</td>
           </tr>
@@ -859,8 +860,8 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;    
-">
+    display: block;
+" id="scaleWrap">
         <use href="#letterhead"></use>
       </svg><img style="
     position: absolute;
@@ -879,7 +880,7 @@
       <table style="
     position: absolute;
     top: 2.4in;
-    left: 1.5in;
+    left: 1in;
     font-family: 'Trebuchet MS', sans-serif, Bold;
     font-weight: bold;
     font-size: 9pt;
@@ -943,7 +944,7 @@
           </tr>
           <tr>
             <td>REFER BY:</td>
-            <td><input type="text" id="reference"></td>
+            <td style="width: 2.5in;"><input type="text" id="reference"></td>
             <td>BMI:</td>
             <td id="bmi">572</td>
           </tr>
@@ -1054,14 +1055,14 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;    
-">
+    display: block;
+" id="scaleWrap">
         <use href="#letterhead"></use>
       </svg>
       <table style="
     position: absolute;
     top: 2.2in;
-    left: 1.5in;
+    left: 1in;
     font-family: 'Trebuchet MS', sans-serif, Bold;
     font-weight: bold;
     font-size: 9pt;
@@ -1125,7 +1126,7 @@
           </tr>
           <tr>
             <td>REFER BY:</td>
-            <td><input type="text" id="reference"></td>
+            <td style="width: 2.5in;"><input type="text" id="reference"></td>
             <td>BMI:</td>
             <td id="bmi">572</td>
           </tr>
@@ -1142,8 +1143,8 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;    
-">
+    display: block;
+" id="scaleWrap">
         <use href="#letterhead"></use>
       </svg></div>
     <img
@@ -1156,7 +1157,7 @@
     <table style="
     position: absolute;
     top: 2.25in;
-    left: 1.5in;
+    left: 1in;
     font-family: 'Trebuchet MS', sans-serif, Bold;
     font-weight: bold;
     font-size: 9pt;
@@ -1220,7 +1221,7 @@
         </tr>
         <tr>
           <td>REFER BY:</td>
-          <td><input type="text" id="reference"></td>
+          <td style="width: 2.5in;"><input type="text" id="reference"></td>
           <td>BMI:</td>
           <td id="bmi">572</td>
         </tr>
@@ -1236,14 +1237,14 @@
 "><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2729" height="3825"
         xml:space="preserve" overflow="hidden" style="
     transform-origin: top left;
-    display: block;    
-">
+    display: block;
+" id="scaleWrap">
         <use href="#letterhead"></use>
       </svg></div>    
     <table style="
     position: absolute;
     top: 2in;
-    left: 1.5in;
+    left: 1in;
     font-family: 'Trebuchet MS', sans-serif, Bold;
     font-weight: bold;
     font-size: 9pt;
@@ -1307,7 +1308,7 @@
         </tr>
         <tr>
           <td>REFER BY:</td>
-          <td><input type="text" id="reference"></td>
+          <td style="width: 2.5in;"><input type="text" id="reference"></td>
           <td>BMI:</td>
           <td id="bmi">572</td>
         </tr>
@@ -1629,12 +1630,13 @@ document.querySelector('#reference').addEventListener("blur", function () {
   const clientName = this.value.toLowerCase(); // normalize to lowercase
   const name = document.querySelector('#name').value;
   const clientidElements = document.querySelectorAll("[id='clientid']");
-  let clientIDs = JSON.parse(localStorage.getItem('clientIDs')) || ["M-1001", "T-5572", "A-3000"];
+  let clientIDs = JSON.parse(localStorage.getItem('clientIDs')) || ["M-1001", "T-5572", "A-3000", "C-101"];
 
   // Determine prefix based on normalized clientName
   let prefix = clientName === "mansol manpower" ? "M-" :
     clientName === "teleport manpower" ? "T-" :
     clientName === "ashtar trade test" ? "A-" :
+    clientName === "connect people requirement agency" ? "C-" :
     null;
 
   if (!prefix) return; // exit if not recognized
@@ -1645,7 +1647,8 @@ document.querySelector('#reference').addEventListener("blur", function () {
     // No existing ID with this prefix, create a new starting one
     const startNumber = prefix === "M-" ? 1001 :
       prefix === "T-" ? 5572 :
-      prefix === "A-" ? 3000 : 1;
+      prefix === "A-" ? 3000 :
+      prefix === "C-" ? 101 : 1;
 
     const newID = prefix + startNumber;
     // Add to the list and store it
@@ -1991,6 +1994,7 @@ document.querySelector('#reference').addEventListener("blur", function () {
       "Teleport Manpower",
       "Mansol Manpower",
       "Ashtar Trade Test",
+      "Connect People Requirement Agency",
       "Self"
     ];
     // Apply autocomplete on each input with its own list
@@ -2182,10 +2186,11 @@ document.querySelector('#reference').addEventListener("blur", function () {
       if (navigator.canShare && navigator.canShare({ files: [processedPdfFile] })) {
         try {
           await navigator.share({
-            title: processedPdfFileName,
+            title: "Message",
             text: `Here is the converted PDF: ${processedPdfFileName}`,
             files: [processedPdfFile]
           });
+          document.getElementById('sharebalance').click();
         } catch (error) {
           console.error('Sharing failed:', error);
           alert('Sharing failed: ' + error.message);
@@ -2194,6 +2199,28 @@ document.querySelector('#reference').addEventListener("blur", function () {
         alert('Your device or browser does not support file sharing.');
       }
     });
+
+    document.querySelector('#balance').addEventListener("blur", function(){      
+      localStorage.balance = Number(this.innerText);
+    })
+
+document.getElementById('sharebalance').addEventListener('click', async () => {
+  //const raw = document.querySelector('#balance').innerText.replace(/[^\d.-]/g, '');
+  //localStorage.balance = (Number(localStorage.balance || 0) - Number(raw));  
+  PreviousBalanace = Number(localStorage.balance || 0)
+  localStorage.balance = (Number(localStorage.balance || 0) + Number(160));  
+  try {
+    await navigator.share({
+      title: "Message",
+      text: `Balance: ${PreviousBalanace} + 160  = ${localStorage.balance} Rs.`
+    });    
+  } catch (error) {
+    console.error("Sharing failed:", error);
+    alert("Sharing failed: " + error.message);
+  }
+});
+
+
     document.querySelector('#bloodgroup').addEventListener('blur', function () {
       if (this.value === '') {
         setTimeout(() => {
