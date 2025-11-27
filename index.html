@@ -4,6 +4,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/svg2pdf.js@2.2.4/dist/svg2pdf.umd.min.js"></script>
   <link rel="manifest" href="manifest.json">
   <style type="text/css">
     #protected-content {
@@ -68,13 +69,15 @@
     </div>
 
     <div id=protected-content>
-  <button id="printconvert">Print &amp; Convert</button>
+  <button id="print">Print to Pdf</button>
   <button id="convertBtn">Convert PDF to Images</button>
   <button id="shareBtn" disabled="">Share Converted Image Based PDF</button>
   <button id="sharebalance">Share Balance</button>
   <div><span id="balance" contenteditable="true">150</span> Rs.</div>  
   <button id="erasedata">Erase Input Fields Data</button>
   <button id="ecgshow">Show Ecg</button>
+    <button id="firstinlinesvgtopdf">First Inline Svg to Pdf</button>
+<button id="allsvgtopdf">All Svg to Pdf</button>
   <div id="master">
     <div style="
     width: 210mm;
@@ -2093,7 +2096,7 @@ document.querySelector('#reference').addEventListener("blur", function () {
     window.print();
   });
   */
-    document.querySelector('#printconvert').addEventListener("blur", function (e) {
+    document.querySelector('#print').addEventListener("blur", function (e) {
       /*
       window.onafterprint = () => {
       // Must delay to let print finish cleanly
@@ -2182,11 +2185,10 @@ document.querySelector('#reference').addEventListener("blur", function () {
       if (navigator.canShare && navigator.canShare({ files: [processedPdfFile] })) {
         try {
           await navigator.share({
-            title: "Message",
-            text: `Here is the converted PDF: ${processedPdfFileName}`,
+            title: "Al Hamd Lab Report",
+            text: `Converted PDF Report: ${processedPdfFileName}`,
             files: [processedPdfFile]
-          });
-          document.getElementById('sharebalance').click();
+          });          
         } catch (error) {
           console.error('Sharing failed:', error);
           alert('Sharing failed: ' + error.message);
@@ -2200,6 +2202,7 @@ document.querySelector('#reference').addEventListener("blur", function () {
       localStorage.balance = Number(this.innerText);
     })
 
+    document.querySelector("#balance").innerText = localStorage.balance;
 document.getElementById('sharebalance').addEventListener('click', async () => {
   //const raw = document.querySelector('#balance').innerText.replace(/[^\d.-]/g, '');
   //localStorage.balance = (Number(localStorage.balance || 0) - Number(raw));  
@@ -2366,6 +2369,84 @@ document.getElementById('sharebalance').addEventListener('click', async () => {
   console.log("RBS values:", rbsValues);
   console.log("Blood Groups:", bloodGroups);
   console.log("References:", references);
+});
+
+document.querySelector('#firstinlinesvgtopdf').addEventListener("click", function(e){
+  const { jsPDF } = window.jspdf;
+const svg = document.querySelector("svg");
+
+
+    // Clone the SVG (optional but safer)
+    const clonedSVG = svg.cloneNode(true);
+
+    // Remove scripts for safety
+    clonedSVG.querySelectorAll('script').forEach(s => s.remove());
+
+    // Ensure width/height
+    const width = parseFloat(clonedSVG.getAttribute("width")) || 600;
+    const height = parseFloat(clonedSVG.getAttribute("height")) || 300;
+
+    // Create PDF and render SVG
+    const pdf = new jsPDF({
+      unit: "pt",
+      format: [width, height]
+    });
+
+    pdf.svg(clonedSVG, {
+      x: 0,
+      y: 0,
+      width,
+      height
+    }).then(() => {
+      pdf.save("inline-svg.pdf");
+    }).catch(err => {
+      console.error("Failed to render SVG to PDF:", err);
+      alert("Error exporting SVG to PDF.");
+    });
+  
+})
+
+document.querySelector('#allsvgtopdf').addEventListener("click", function(e) {
+  const { jsPDF } = window.jspdf;
+  const svg = document.querySelector("svg");
+
+  // Clone the SVG (optional but safer)
+  const clonedSVG = svg.cloneNode(true);
+
+  // Remove scripts for safety
+  clonedSVG.querySelectorAll('script').forEach(s => s.remove());
+
+  // Ensure width/height
+  const width = parseFloat(clonedSVG.getAttribute("width")) || 600;
+  const height = parseFloat(clonedSVG.getAttribute("height")) || 300;
+
+  // Create PDF instance
+  const pdf = new jsPDF({
+    unit: "pt",
+    format: [width, height]
+  });
+
+  // Helper function to render SVG to a given page
+  function renderPage(pageIndex) {
+    return pdf.svg(clonedSVG, {
+      x: 0,
+      y: 0,
+      width,
+      height
+    }).then(() => {
+      if (pageIndex < 4) { // We already rendered page 1, so repeat 4 more times
+        pdf.addPage([width, height]);
+        return renderPage(pageIndex + 1);
+      }
+    });
+  }
+
+  renderPage(0).then(() => {
+    pdf.save("svg-repeated-5-pages.pdf");
+  }).catch(err => {
+    console.error("Failed to render SVG to PDF:", err);
+    alert("Error exporting SVG to PDF.");
+  });
 });
 
 const correctPassword = '@13Tau3756'; // Set your desired password here
